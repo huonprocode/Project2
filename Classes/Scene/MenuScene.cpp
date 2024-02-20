@@ -14,6 +14,7 @@ bool MenuScene::init()
 	}
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
+	AudioManager::getInstance()->playMusic("space-rock-2.mp3");
 
 	auto backGround = Sprite::create("BackGround/BGHard.png");
 	backGround->setPosition(Vec2(visibleSize.width / 2, visibleSize.height/2));

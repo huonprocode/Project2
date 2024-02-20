@@ -7,7 +7,8 @@
 #include "GameOver.h"
 #include "PauseScene.h"
 #include "SettingScene.h"
- 
+#include "Audio/AudioManager.h"
+
 USING_NS_CC;
 
 class MenuScene : public Scene
