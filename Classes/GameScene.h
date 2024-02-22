@@ -8,6 +8,7 @@
 #include "cocos2d.h"
 #include "map"
 #include "Scene/PauseScene.h"
+#include "Audio/AudioManager.h"
 
 USING_NS_CC;
 

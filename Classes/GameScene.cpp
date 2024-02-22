@@ -311,6 +311,7 @@ void GameScene::onTouchEnded(Touch* touch, Event* event)
 
 void GameScene::attack(float dt)
 {
+	AudioManager::getInstance()->playSFX("laser.mp3");
 	for (int i = 0; i < defaultbullet; i++) {
 		auto bullet = Bullet::create(_ship->getEntityInfo()->_level);
 		bullet->setPosition(_ship->getPosition() + bulletbegin[i]);
