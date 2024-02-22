@@ -39,6 +39,7 @@ bool PauseScene::init()
 
 void PauseScene::callSetingScene(Ref* sender)
 {
+
 }
 
 void PauseScene::callMainMenu(Ref* sender)
