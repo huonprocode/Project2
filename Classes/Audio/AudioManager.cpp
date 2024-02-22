@@ -17,6 +17,12 @@ AudioManager::AudioManager()
     _sfxVolume = UserDefault::getInstance()->getFloatForKey("SfxVolume", 0.0f);
 }
 
+void AudioManager::init()
+{
+    _musicVolume = UserDefault::getInstance()->getFloatForKey("MusicVolume", 0.0f);
+    _sfxVolume = UserDefault::getInstance()->getFloatForKey("SfxVolume", 0.0f);
+}
+
 void AudioManager::playMusic(std::string fileName)
 {
     AudioEngine::stop(_bgmID);

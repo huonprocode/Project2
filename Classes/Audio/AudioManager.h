@@ -10,6 +10,8 @@ class AudioManager
 public:
 	static AudioManager* getInstance();
 
+	void init();
+
 	void playMusic(std::string fileName);
 	void playSFX(std::string fileName);
 

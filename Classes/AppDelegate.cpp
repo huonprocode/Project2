@@ -109,6 +109,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     // create a scene. it's an autorelease object
+    AudioManager::getInstance()->init();
     //auto scene = HelloWorld::createScene();
     auto scene = MenuScene::create();
     // run

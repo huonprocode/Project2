@@ -1,9 +1,9 @@
 #ifndef __PAUSE_SCENE_H__
 #define __PAUSE_SCENE_H__
 
-#include "cocos2d.h";
-#include "MenuScene.h";
-#include "GameScene.h";
+#include "cocos2d.h"
+#include "MenuScene.h"
+#include "GameScene.h"
 
 USING_NS_CC;
 
