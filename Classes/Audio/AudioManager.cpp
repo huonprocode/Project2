@@ -26,7 +26,7 @@ void AudioManager::playMusic(std::string fileName)
 void AudioManager::playSFX(std::string fileName)
 {
     AudioEngine::stop(_sfxID);
-    _sfxID = AudioEngine::play2d("Audio/" + fileName, true, _sfxVolume);
+    _sfxID = AudioEngine::play2d("Audio/" + fileName, false, _sfxVolume);
 }
 
 void AudioManager::setMusicVolume(float newVolume)
