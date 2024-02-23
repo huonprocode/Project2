@@ -17,8 +17,16 @@ void Observer::registerEvent(std::string type, std::function<void(void*)> callba
 
 void Observer::unRegisterEvent(std::string type, std::function<void(void*)> callback)
 {
-	/*auto observers = getObservers(type);
-	std::remove(observers->begin(), observers->end(), callback);*/
+	auto observers = getObservers(type);
+	if (observers) {
+		auto it = std::remove_if(observers->begin(), observers->end(),
+			[&callback](const std::function<void(void*)>& func) {
+				return func.target_type() == callback.target_type();
+			});
+
+		// Erase the removed elements
+		observers->erase(it, observers->end());
+	}
 }
 
 void Observer::notify(std::string type, void* data)

@@ -485,3 +485,13 @@ void GameScene::callPauseScene(Ref* sender)
 	Director::getInstance()->pause();
 	
 }
+
+void GameScene::onExit()
+{
+	Scene::onExit();
+	this->removeAllChildrenWithCleanup(true);
+	Observer::getInstance()->unRegisterEvent("EnemyDie", CC_CALLBACK_1(GameScene::updatequantity, this));
+	Observer::getInstance()->unRegisterEvent("AddBullet", CC_CALLBACK_0(GameScene::addBullet, this));
+	Observer::getInstance()->unRegisterEvent("ShipTakeDame", CC_CALLBACK_1(GameScene::changeLife, this));
+	Observer::getInstance()->unRegisterEvent("BossDie", CC_CALLBACK_1(GameScene::callBossDie, this));
+}
