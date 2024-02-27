@@ -11,6 +11,7 @@ public:
 
 	virtual bool init() override;
 
+	void callBack(Ref* sender);
 	void level1(Ref* sender);
 	void level2(Ref* sender);
 	void level3(Ref* sender);

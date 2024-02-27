@@ -1,6 +1,22 @@
 #include "PauseScene.h"
+#include "MenuScene.h"
+#include "GameScene.h"
+#include "SettingScene.h"
 
-bool PauseScene::init()
+LayerColor* PauseScene::create(int score)
+{
+	auto newObject = new PauseScene();
+	if (newObject != nullptr && newObject->init(score))
+	{
+		newObject->autorelease();
+		return newObject;
+	}
+
+	CC_SAFE_DELETE(newObject);
+	return nullptr;
+}
+
+bool PauseScene::init(int score)
 {
 	if (!LayerColor::initWithColor(cocos2d::Color4B(0, 0, 0, 128))) {
 		return false;
@@ -31,7 +47,7 @@ bool PauseScene::init()
 
 	auto tableSize = tableSprite->getContentSize();
 
-	auto label = Label::createWithTTF("10000", "fonts/ethnocentric rg.otf", 24);
+	auto label = Label::createWithTTF(std::to_string(score), "fonts/ethnocentric rg.otf", 24);
 	label->setPosition(Vec2(tableSize / 2));
 	tableSprite->addChild(label);
 	return true;
@@ -39,14 +55,15 @@ bool PauseScene::init()
 
 void PauseScene::callSetingScene(Ref* sender)
 {
-
+	auto settingg = SettingScene::create();
+	addChild(settingg, INT_MAX);
 }
 
 void PauseScene::callMainMenu(Ref* sender)
 {
 	Director::getInstance()->resume();
 	this->removeFromParent();
-	Director::getInstance()->replaceScene(MenuScene::createScene());
+	Director::getInstance()->replaceScene(MenuScene::create());
 }
 
 void PauseScene::callResume(Ref* sender)

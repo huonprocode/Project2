@@ -482,7 +482,7 @@ void GameScene::callBossDie(void* data)
 void GameScene::callPauseScene(Ref* sender)
 {
 	
-	auto window = PauseScene::create();
+	auto window = PauseScene::create(_totalscore);
 	addChild(window, INT_MAX);
 	Director::getInstance()->pause();
 	
@@ -495,6 +495,7 @@ void GameScene::callGameOver()
 	auto gameover = GameOver::create(_totalscore);
 	Director::getInstance()->replaceScene(gameover);
 }
+
 void GameScene::onExit()
 {
 	Scene::onExit();

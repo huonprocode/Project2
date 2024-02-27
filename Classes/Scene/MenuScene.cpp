@@ -18,8 +18,9 @@ bool MenuScene::init()
 
 	AudioManager::getInstance()->playMusic("space-rock-2.mp3");
 
-	auto backGround = Sprite::create("BackGround/BGHard.png");
+	auto backGround = Sprite::create("BackGround/BG.png");
 	backGround->setPosition(Vec2(visibleSize.width / 2, visibleSize.height/2));
+	backGround->setScale(0.8f);
 	this->addChild(backGround, 0);
 
 	auto gameScene = MenuItemImage::create("Scene/Start.png","Scene/Start1.png", CC_CALLBACK_1(MenuScene::callGameScene, this));
@@ -50,8 +51,7 @@ void MenuScene::callGameScene(Ref* sender)
 void MenuScene::callSettingScene(Ref* sender)
 {
 	auto setting = SettingScene::create();
-	addChild(setting, INT_MAX);
-	
+	addChild(setting, INT_MAX);	
 }
 
 void MenuScene::callExit(Ref* sender)

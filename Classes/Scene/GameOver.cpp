@@ -20,7 +20,7 @@ bool GameOver::init(int diem)
 		return false;
 	}
 
-	auto window = Sprite::create("Scene/Window.png");
+	auto window = Sprite::create("Scene/WindowLose.png");
 	window->setScale(0.70f);
 	window->setPosition(cocos2d::Director::getInstance()->getVisibleSize() / 2);
 	this->addChild(window);

@@ -1,5 +1,6 @@
 #include "MapScene.h"
 #include "GameScene.h"
+#include "MenuScene.h"
 
 bool MapScene::init()
 {
@@ -9,9 +10,16 @@ bool MapScene::init()
 	}
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto backGround = Sprite::create("BackGround/BGHard.png");
+	auto backGround = Sprite::create("BackGround/BG.png");
 	backGround->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
 	this->addChild(backGround, -1);
+
+	auto backButton = MenuItemImage::create("Scene/Next_BTN.png", "Scene/Next_BTN.png", CC_CALLBACK_1(MapScene::callBack, this));
+	backButton->setScale(0.5);
+	backButton->setAnchorPoint(Vec2::ANCHOR_TOP_RIGHT);
+	auto button = Menu::create(backButton, nullptr);
+	button->setPosition(Vec2(Director::getInstance()->getVisibleSize()));
+	this->addChild(button,1);
 
 	auto level1 = MenuItemImage::create("Scene/Level1_BTN.png", "Scene/Level1_BTN.png", CC_CALLBACK_1(MapScene::level1, this));
 	level1->setScale(0.75f);
@@ -26,6 +34,7 @@ bool MapScene::init()
 	menu->setPosition(visibleSize / 2);
 	menu->alignItemsVerticallyWithPadding(visibleSize.height / 30);
 	this->addChild(menu, 1);
+
 	return true;
 }
 
@@ -42,4 +51,9 @@ void MapScene::level2(Ref* sender)
 void MapScene::level3(Ref* sender)
 {
 	Director::getInstance()->replaceScene(GameScene::create("Hard", 3));
+}
+
+void MapScene::callBack(Ref* sender)
+{
+	Director::getInstance()->replaceScene(MenuScene::create());
 }
