@@ -476,6 +476,7 @@ void GameScene::callBossDie(void* data)
 	this->unschedule("callBoss");
 	this->unschedule(CC_SCHEDULE_SELECTOR(GameScene::callrandomAttack));
 	this->unschedule("unscheduleUpdateEnemy");
+
 }
 
 void GameScene::callPauseScene(Ref* sender)
@@ -489,11 +490,10 @@ void GameScene::callPauseScene(Ref* sender)
 
 void GameScene::callGameOver()
 {
+	this->getEventDispatcher()->removeEventListenersForTarget(this,true);
 	this->unschedule(CC_SCHEDULE_SELECTOR(GameScene::attack));
-	// game over 
 	auto gameover = GameOver::create(_totalscore);
-	this->addChild(gameover, 5);
-
+	Director::getInstance()->replaceScene(gameover);
 }
 void GameScene::onExit()
 {

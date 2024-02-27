@@ -1,6 +1,8 @@
 #include "MenuScene.h"
+#include "MapScene.h"
 
 USING_NS_CC;
+
 Scene* MenuScene::createScene()
 {
 	return MenuScene::create();
@@ -41,8 +43,7 @@ bool MenuScene::init()
 
 void MenuScene::callGameScene(Ref* sender)
 {
-	
-	Director::getInstance()->replaceScene(GameScene::create("Easy", 1));
+	Director::getInstance()->replaceScene(MapScene::create());
 	Director::getInstance()->resume();
 }
 

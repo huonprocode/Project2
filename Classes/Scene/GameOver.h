@@ -7,16 +7,16 @@
 
 USING_NS_CC;
 
-class GameOver : public LayerColor
+class GameOver : public Scene
 {
 public:
 	virtual bool init(int diem);
 
 	void callSetingScene(Ref* sender);
 	void callMainMenu(Ref* sender);
-	void callMap(Ref* sender);
+	void callReplay(Ref* sender);
 
-	static LayerColor* create(int diem);
-	// chuyen diem thanh chuoi xong gan vao label la duoc
+	static Scene* create(int diem);
+
 };
 #endif // !__GAME_OVER_H__

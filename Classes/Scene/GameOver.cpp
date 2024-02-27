@@ -1,8 +1,22 @@
 #include "GameOver.h"
 
+Scene* GameOver::create(int diem)
+{
+	auto newObject = new GameOver();
+	if (newObject != nullptr && newObject->init(diem))
+	{
+		newObject->autorelease();
+		return newObject;
+	}
+
+	CC_SAFE_DELETE(newObject);
+	return nullptr;
+}
+
 bool GameOver::init(int diem)
 {
-	if (!LayerColor::initWithColor(cocos2d::Color4B(0, 0, 0, 128))) {
+	if (!Scene::init()) 
+	{
 		return false;
 	}
 
@@ -15,7 +29,7 @@ bool GameOver::init(int diem)
 
 	auto menuButton = MenuItemImage::create("Scene/Menu_BTN.png", "Scene/Menu_BTN.png", CC_CALLBACK_1(GameOver::callMainMenu, this));
 	auto settingButton = MenuItemImage::create("Scene/Settings_BTN.png", "Scene/Settings_BTN.png", CC_CALLBACK_1(GameOver::callSetingScene, this));
-	auto replayButton = MenuItemImage::create("Scene/Replay_BTN.png", "Scene / Replay_BTN.png", CC_CALLBACK_1(GameOver::callMap, this));
+	auto replayButton = MenuItemImage::create("Scene/Replay_BTN.png", "Scene / Replay_BTN.png", CC_CALLBACK_1(GameOver::callReplay, this));
 
 	auto menuLoseScene = Menu::create(settingButton, replayButton, menuButton, nullptr);
 	menuLoseScene->setPosition(Vec2(windowSize.width / 2, windowSize.height / 8));
@@ -36,26 +50,6 @@ bool GameOver::init(int diem)
 	label->setPosition(Vec2(tableSize / 2));
 	tableSprite->addChild(label);
 
-	/*auto slider = ui::Slider::create();
-	slider->loadBarTexture("Scene/Slider_Back.png");
-	slider->loadSlidBallTextures("Scene/SliderNode_Normal.png");
-	slider->loadProgressBarTexture("Scene/Slider_PressBar.png");
-	slider->setPosition(Vec2(windowSize/2));
-	slider->setScale(0.75);
-	slider->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
-		switch (type)
-		{
-		case ui::Widget::TouchEventType::BEGAN:
-			break;
-		case ui::Widget::TouchEventType::ENDED:
-			std::cout << "slider moved" << std::endl;
-			break;
-		default:
-			break;
-		}
-		});
-	window->addChild(slider);*/
-
 	return true;
 }
 
@@ -71,20 +65,9 @@ void GameOver::callMainMenu(Ref* sender)
 	Director::getInstance()->replaceScene(MenuScene::create());
 }
 
-void GameOver::callMap(Ref* sender)
+void GameOver::callReplay(Ref* sender)
 {
 	Director::getInstance()->replaceScene(GameScene::create("Easy", 1));
 }
 
-LayerColor* GameOver::create(int diem)
-{
-	auto newObject = new GameOver();
-	if (newObject != nullptr && newObject->init(diem))
-	{
-		newObject->autorelease();
-		return newObject;
-	}
 
-	CC_SAFE_DELETE(newObject);
-	return nullptr;
-}
