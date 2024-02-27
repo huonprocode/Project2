@@ -55,7 +55,7 @@ void Ship::takeDamage(int dame)
 		_dame = dame;
 		Observer::getInstance()->notify("ShipTakeDame", this);
 
-		if (_dame > 0) {
+		if (_dame > 0 && newhealth > 0) {
 			this->getPhysicsBody()->setEnabled(false);
 			this->getModel()->setOpacity(50);
 			// Schedule a callback to turn on physics body after 2 seconds
@@ -71,6 +71,7 @@ void Ship::onDie()
 {
 	//log("die");
 	// add effects....
+	Observer::getInstance()->notify("ShipDie", this);
 	this->removeFromParentAndCleanup(true);
 }
 

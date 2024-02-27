@@ -67,6 +67,7 @@ private:
 	void callBossDie(void* data);
 
 	void callPauseScene(Ref* sender);
+	void callGameOver();
 	void onExit() override;
 };
 

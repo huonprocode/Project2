@@ -10,12 +10,13 @@ USING_NS_CC;
 class GameOver : public LayerColor
 {
 public:
-	virtual bool init() override;
+	virtual bool init(int diem);
 
 	void callSetingScene(Ref* sender);
 	void callMainMenu(Ref* sender);
 	void callMap(Ref* sender);
 
-	CREATE_FUNC(GameOver);
+	static LayerColor* create(int diem);
+	// chuyen diem thanh chuoi xong gan vao label la duoc
 };
 #endif // !__GAME_OVER_H__
