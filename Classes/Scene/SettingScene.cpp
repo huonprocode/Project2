@@ -2,7 +2,7 @@
 
 bool SettingScene::init()
 {
-    if (!LayerColor::initWithColor(cocos2d::Color4B(0, 0, 0, 128)))
+    if (!Layer::init())
     {
         return false;
     }
@@ -82,6 +82,10 @@ bool SettingScene::init()
     auto musicLabel = Label::createWithTTF("Music", "fonts/ethnocentric rg.otf", 30);
     musicLabel->setPosition(Vec2(winSettingSize.width/2, winSettingSize.height/1.4));
     windowSetting->addChild(musicLabel);
+
+    auto sfxLabel = Label::createWithTTF("SFX", "fonts/ethnocentric rg.otf", 30);
+    sfxLabel->setPosition(Vec2(winSettingSize.width / 2, winSettingSize.height / 2));
+    windowSetting->addChild(sfxLabel);
 
     return true;
 }

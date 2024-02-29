@@ -29,7 +29,7 @@ private:
 	//std::vector<Vec2> _enemyPosition;
 	std::vector<Enemy*> _enemies;
 	int soluong;
-	std::string _difficulty;
+	std::string _difficulty, _thelevel;
 	Ship* _ship;
 	Boss* _boss;
 	bool ispressed = false;
@@ -70,6 +70,7 @@ private:
 	void callPauseScene(Ref* sender);
 	void callGameOver();
 	void onExit() override;
+	void saveToFile(std::string level, int score);
 };
 
 #endif // !__GAME_SCENE_H__

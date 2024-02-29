@@ -1,9 +1,9 @@
 #include "GameOver.h"
 
-Scene* GameOver::create(int diem)
+Scene* GameOver::create(int score)
 {
 	auto newObject = new GameOver();
-	if (newObject != nullptr && newObject->init(diem))
+	if (newObject != nullptr && newObject->init(score))
 	{
 		newObject->autorelease();
 		return newObject;
@@ -13,7 +13,7 @@ Scene* GameOver::create(int diem)
 	return nullptr;
 }
 
-bool GameOver::init(int diem)
+bool GameOver::init(int score)
 {
 	if (!Scene::init()) 
 	{
@@ -46,7 +46,7 @@ bool GameOver::init(int diem)
 
 	auto tableSize = tableSprite->getContentSize();
 
-	auto label = Label::createWithTTF(std::to_string(diem), "fonts/ethnocentric rg.otf", 24);
+	auto label = Label::createWithTTF(std::to_string(score), "fonts/ethnocentric rg.otf", 24);
 	label->setPosition(Vec2(tableSize / 2));
 	tableSprite->addChild(label);
 

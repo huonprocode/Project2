@@ -8,7 +8,7 @@
 
 USING_NS_CC;
 
-class SettingScene : public LayerColor
+class SettingScene : public Layer
 {
 public:
 	virtual bool init() override;

@@ -9,6 +9,9 @@
 #include "Gift/Gift.h"
 #include "BossRocket/BossRocket.h"
 #include "Utilities/AnimationUtils.h"
+#include "json/stringbuffer.h"
+#include "json/writer.h"
+#include <fstream>
 
 void GameScene::callEnemy(float dt)
 {
@@ -476,7 +479,7 @@ void GameScene::callBossDie(void* data)
 	this->unschedule("callBoss");
 	this->unschedule(CC_SCHEDULE_SELECTOR(GameScene::callrandomAttack));
 	this->unschedule("unscheduleUpdateEnemy");
-
+	saveToFile(_thelevel, _totalscore);
 }
 
 void GameScene::callPauseScene(Ref* sender)
@@ -492,6 +495,7 @@ void GameScene::callGameOver()
 {
 	this->getEventDispatcher()->removeEventListenersForTarget(this,true);
 	this->unschedule(CC_SCHEDULE_SELECTOR(GameScene::attack));
+	saveToFile(_thelevel, _totalscore);
 	auto gameover = GameOver::create(_totalscore);
 	Director::getInstance()->replaceScene(gameover);
 }
@@ -505,4 +509,51 @@ void GameScene::onExit()
 	Observer::getInstance()->unRegisterEvent("ShipTakeDame", CC_CALLBACK_1(GameScene::changeLife, this));
 	Observer::getInstance()->unRegisterEvent("BossDie", CC_CALLBACK_1(GameScene::callBossDie, this));
 	Observer::getInstance()->unRegisterEvent("ShipDie", CC_CALLBACK_0(GameScene::callGameOver, this));
+}
+
+void GameScene::saveToFile(std::string level, int score)
+{
+	std::string path = FileUtils::getInstance()->getWritablePath();
+	path += "highscore.json";
+
+	if (!FileUtils::getInstance()->isFileExist(path))
+	{
+		// create new 
+		std::string content = FileUtils::getInstance()->getStringFromFile("default-highscore.json");
+		FileUtils::getInstance()->writeStringToFile(content, path);
+	}
+
+	// read file
+	auto highScoreContent = FileUtils::getInstance()->getStringFromFile(path);
+	rapidjson::Document docs;
+	docs.Parse(highScoreContent.c_str());
+
+	// Check if the document is an object
+	if (docs.IsObject()) {
+		// Convert level to a const char*
+		const char* thelevel = level.c_str();
+
+		// Check if the level exists in the document
+		if (docs.HasMember(thelevel)) {
+			// Get the current high score for the level
+			int highScore = docs[thelevel].GetInt();
+
+			// If the new score is higher, update the high score
+			if (highScore < score) {
+				docs[thelevel] = score;
+
+				// write file
+				rapidjson::StringBuffer buffer;
+				rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+				docs.Accept(writer);
+
+				FILE* file = fopen(path.c_str(), "wb");
+				if (file)
+				{
+					fputs(buffer.GetString(), file);
+					fclose(file);
+				}
+			}
+		}
+	}
 }

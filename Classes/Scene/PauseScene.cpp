@@ -18,9 +18,23 @@ LayerColor* PauseScene::create(int score)
 
 bool PauseScene::init(int score)
 {
-	if (!LayerColor::initWithColor(cocos2d::Color4B(0, 0, 0, 128))) {
+	if (!LayerColor::init()) 
+	{
 		return false;
 	}
+
+	auto overlayLayer = LayerColor::create(Color4B(0, 0, 0, 128));
+	overlayLayer->setContentSize(Director::getInstance()->getVisibleSize());
+	overlayLayer->setPosition(Vec2::ZERO);
+	this->addChild(overlayLayer, -1);
+
+	auto touchListener = EventListenerTouchOneByOne::create();
+	touchListener->setSwallowTouches(true);
+	touchListener->onTouchBegan = [](Touch* touch, Event* event) -> bool {
+		return true;
+		};
+	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, overlayLayer);
+
 	auto windowPause = Sprite::create("Scene/WindowPause.png");
 	windowPause->setScale(0.70f);
 	windowPause->setPosition(cocos2d::Director::getInstance()->getVisibleSize() / 2);
