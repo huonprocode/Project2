@@ -504,5 +504,5 @@ void GameScene::onExit()
 	Observer::getInstance()->unRegisterEvent("AddBullet", CC_CALLBACK_0(GameScene::addBullet, this));
 	Observer::getInstance()->unRegisterEvent("ShipTakeDame", CC_CALLBACK_1(GameScene::changeLife, this));
 	Observer::getInstance()->unRegisterEvent("BossDie", CC_CALLBACK_1(GameScene::callBossDie, this));
-	Observer::getInstance()->registerEvent("ShipDie", CC_CALLBACK_0(GameScene::callGameOver, this));
+	Observer::getInstance()->unRegisterEvent("ShipDie", CC_CALLBACK_0(GameScene::callGameOver, this));
 }
