@@ -115,6 +115,7 @@ bool GameScene::init(std::string level, int BossLevel)
 	AnimationUtils::loadSpriteFrameCache("Explosion/", "EnemyExplosion");
 	AnimationUtils::createAnimation("EnemyExplosion", 0.1f);
 	boss_level = BossLevel;
+	this->_thelevel = level;
 	//this->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	visibleSize = Director::getInstance()->getVisibleSize();
 	Node* frame = Node::create();
