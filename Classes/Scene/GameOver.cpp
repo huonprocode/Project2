@@ -25,7 +25,7 @@ bool GameOver::init(int score)
 	window->setPosition(cocos2d::Director::getInstance()->getVisibleSize() / 2);
 	this->addChild(window);
 
-	auto windowSize = window->getContentSize();
+	Size windowSize = window->getContentSize();
 
 	auto menuButton = MenuItemImage::create("Scene/Menu_BTN.png", "Scene/Menu_BTN.png", CC_CALLBACK_1(GameOver::callMainMenu, this));
 	auto settingButton = MenuItemImage::create("Scene/Settings_BTN.png", "Scene/Settings_BTN.png", CC_CALLBACK_1(GameOver::callSetingScene, this));
@@ -44,7 +44,7 @@ bool GameOver::init(int score)
 	tableSprite->setPosition(Vec2(windowSize.width / 1.5, windowSize.height / 1.5));
 	window->addChild(tableSprite);
 
-	auto tableSize = tableSprite->getContentSize();
+	Size tableSize = tableSprite->getContentSize();
 
 	auto label = Label::createWithTTF(std::to_string(score), "fonts/ethnocentric rg.otf", 24);
 	label->setPosition(Vec2(tableSize / 2));
@@ -57,7 +57,6 @@ void GameOver::callSetingScene(Ref* sender)
 {
 	auto settingLayer = SettingScene::create();
 	this->addChild(settingLayer, INT_MAX);
-
 }
 
 void GameOver::callMainMenu(Ref* sender)

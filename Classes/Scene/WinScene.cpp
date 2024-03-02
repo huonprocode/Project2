@@ -18,31 +18,31 @@ bool WinScene::init(int score)
 	if (!Scene::init()) {
 		return false;
 	}
-	auto window = Sprite::create("Scene/WindowWin.png");
-	window->setScale(0.70f);
-	window->setPosition(cocos2d::Director::getInstance()->getVisibleSize() / 2);
-	this->addChild(window);
+	auto windowWin = Sprite::create("Scene/WindowWin.png");
+	windowWin->setScale(0.70f);
+	windowWin->setPosition(cocos2d::Director::getInstance()->getVisibleSize() / 2);
+	this->addChild(windowWin);
 
-	auto windowSize = window->getContentSize();
+	Size windowWinSize = windowWin->getContentSize();
 
 	auto nextButton = MenuItemImage::create("Scene/Next_BTN.png", "Scene/Next_BTN.png", CC_CALLBACK_1(WinScene::callBack, this));
 	auto settingButton = MenuItemImage::create("Scene/Settings_BTN.png", "Scene/Settings_BTN.png", CC_CALLBACK_1(WinScene::callSetingScene, this));
 	auto replayButton = MenuItemImage::create("Scene/Replay_BTN.png", "Scene / Replay_BTN.png", CC_CALLBACK_1(WinScene::callReplay, this));
 
 	auto menuWinScene = Menu::create(settingButton, replayButton, nextButton, nullptr);
-	menuWinScene->setPosition(Vec2(windowSize.width / 2, windowSize.height / 8));
+	menuWinScene->setPosition(Vec2(windowWinSize.width / 2, windowWinSize.height / 8));
 	menuWinScene->alignItemsHorizontallyWithPadding(30);
-	window->addChild(menuWinScene);
+	windowWin->addChild(menuWinScene);
 
 	auto scoreSprite = Sprite::create("Scene/Score.png");
-	scoreSprite->setPosition(Vec2(windowSize.width / 3, windowSize.height / 1.5));
-	window->addChild(scoreSprite);
+	scoreSprite->setPosition(Vec2(windowWinSize.width / 3, windowWinSize.height / 1.5));
+	windowWin->addChild(scoreSprite);
 
 	auto tableSprite = Sprite::create("Scene/Table.png");
-	tableSprite->setPosition(Vec2(windowSize.width / 1.5, windowSize.height / 1.5));
-	window->addChild(tableSprite);
+	tableSprite->setPosition(Vec2(windowWinSize.width / 1.5, windowWinSize.height / 1.5));
+	windowWin->addChild(tableSprite);
 
-	auto tableSize = tableSprite->getContentSize();
+	Size tableSize = tableSprite->getContentSize();
 
 	auto label = Label::createWithTTF(std::to_string(score), "fonts/ethnocentric rg.otf", 24);
 	label->setPosition(Vec2(tableSize / 2));

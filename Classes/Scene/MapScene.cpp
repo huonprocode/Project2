@@ -1,6 +1,7 @@
 #include "MapScene.h"
 #include "GameScene.h"
 #include "MenuScene.h"
+#include "LevelInfo.h"
 
 bool MapScene::init()
 {
@@ -40,17 +41,17 @@ bool MapScene::init()
 
 void MapScene::level1(Ref* sender)
 {
-	Director::getInstance()->replaceScene(GameScene::create("Easy", 1));
+	addChild(LevelInfo::create("Easy", 1), 5);
 }
 
 void MapScene::level2(Ref* sender)
 {
-	Director::getInstance()->replaceScene(GameScene::create("Medium", 2));
+	addChild(LevelInfo::create("Medium", 2), 5);
 }
 
 void MapScene::level3(Ref* sender)
 {
-	Director::getInstance()->replaceScene(GameScene::create("Hard", 3));
+	addChild(LevelInfo::create("Hard", 3), 5);
 }
 
 void MapScene::callBack(Ref* sender)

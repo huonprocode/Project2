@@ -23,7 +23,7 @@ bool SettingScene::init()
     windowSetting->setPosition(Director::getInstance()->getVisibleSize() / 2);
     this->addChild(windowSetting);
 
-    auto winSettingSize = windowSetting->getContentSize();
+    Size winSettingSize = windowSetting->getContentSize();
 
     auto backButton = MenuItemImage::create("Scene/Close_BTN.png", "Scene/Close_BTN.png", CC_CALLBACK_1(SettingScene::callBack, this));
     
