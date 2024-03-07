@@ -12,7 +12,7 @@
 #include "json/stringbuffer.h"
 #include "json/writer.h"
 #include <fstream>
-
+#include "Scene/WinScene.h"
 void GameScene::callEnemy(float dt)
 {
 	second += dt;
@@ -481,6 +481,8 @@ void GameScene::callBossDie(void* data)
 	this->unschedule(CC_SCHEDULE_SELECTOR(GameScene::callrandomAttack));
 	this->unschedule("unscheduleUpdateEnemy");
 	saveToFile(_thelevel, _totalscore);
+	auto win = WinScene::create(_totalscore, _thelevel, boss_level);
+	Director::getInstance()->replaceScene(win);
 }
 
 void GameScene::callPauseScene(Ref* sender)
@@ -497,7 +499,7 @@ void GameScene::callGameOver()
 	this->getEventDispatcher()->removeEventListenersForTarget(this,true);
 	this->unschedule(CC_SCHEDULE_SELECTOR(GameScene::attack));
 	saveToFile(_thelevel, _totalscore);
-	auto gameover = GameOver::create(_totalscore);
+	auto gameover = GameOver::create(_totalscore, _thelevel, boss_level);
 	Director::getInstance()->replaceScene(gameover);
 }
 

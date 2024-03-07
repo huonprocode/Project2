@@ -10,12 +10,11 @@ USING_NS_CC;
 class GameOver : public Scene
 {
 public:
-	virtual bool init(int score);
-	static Scene* create(int score);
+	virtual bool init(int score, std::string level, int boss);
+	static Scene* create(int score, std::string level, int boss);
 
 	void callSetingScene(Ref* sender);
 	void callMainMenu(Ref* sender);
-	void callReplay(Ref* sender);
 
 };
 #endif // !__GAME_OVER_H__

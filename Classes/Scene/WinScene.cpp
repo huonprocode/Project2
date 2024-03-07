@@ -1,9 +1,9 @@
 #include "WinScene.h"
 
-Scene* WinScene::create(int score)
+Scene* WinScene::create(int score, std::string level, int boss)
 {
 	auto newObject = new WinScene();
-	if (newObject != nullptr && newObject->init(score))
+	if (newObject != nullptr && newObject->init(score, level, boss))
 	{
 		newObject->autorelease();
 		return newObject;
@@ -13,11 +13,16 @@ Scene* WinScene::create(int score)
 	return nullptr;
 }
 
-bool WinScene::init(int score)
+bool WinScene::init(int score, std::string level, int boss)
 {
 	if (!Scene::init()) {
 		return false;
 	}
+
+	Sprite* background = Sprite::create("BackGround/BG" + level + ".png");
+	background->setPosition(Vec2(Director::getInstance()->getVisibleSize() / 2));
+	this->addChild(background, -1);
+
 	auto windowWin = Sprite::create("Scene/WindowWin.png");
 	windowWin->setScale(0.70f);
 	windowWin->setPosition(cocos2d::Director::getInstance()->getVisibleSize() / 2);
@@ -27,7 +32,11 @@ bool WinScene::init(int score)
 
 	auto nextButton = MenuItemImage::create("Scene/Next_BTN.png", "Scene/Next_BTN.png", CC_CALLBACK_1(WinScene::callBack, this));
 	auto settingButton = MenuItemImage::create("Scene/Settings_BTN.png", "Scene/Settings_BTN.png", CC_CALLBACK_1(WinScene::callSetingScene, this));
-	auto replayButton = MenuItemImage::create("Scene/Replay_BTN.png", "Scene / Replay_BTN.png", CC_CALLBACK_1(WinScene::callReplay, this));
+	auto replayButton = MenuItemImage::create("Scene/Replay_BTN.png", "Scene / Replay_BTN.png",
+		[=](Ref* sender)
+		{
+			Director::getInstance()->replaceScene(GameScene::create(level, boss));
+		});
 
 	auto menuWinScene = Menu::create(settingButton, replayButton, nextButton, nullptr);
 	menuWinScene->setPosition(Vec2(windowWinSize.width / 2, windowWinSize.height / 8));
@@ -57,12 +66,7 @@ void WinScene::callSetingScene(Ref* sender)
 	this->addChild(settingLayer, INT_MAX);
 }
 
-void WinScene::callReplay(Ref* sender)
-{
-
-}
-
 void WinScene::callBack(Ref* sender)
 {
-
+	Director::getInstance()->replaceScene(MenuScene::create());
 }

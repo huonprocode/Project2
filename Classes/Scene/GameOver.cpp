@@ -1,9 +1,9 @@
 #include "GameOver.h"
 
-Scene* GameOver::create(int score)
+Scene* GameOver::create(int score, std::string level, int boss)
 {
 	auto newObject = new GameOver();
-	if (newObject != nullptr && newObject->init(score))
+	if (newObject != nullptr && newObject->init(score, level, boss))
 	{
 		newObject->autorelease();
 		return newObject;
@@ -13,12 +13,16 @@ Scene* GameOver::create(int score)
 	return nullptr;
 }
 
-bool GameOver::init(int score)
+bool GameOver::init(int score, std::string level, int boss)
 {
 	if (!Scene::init()) 
 	{
 		return false;
 	}
+
+	Sprite* background = Sprite::create("BackGround/BG" + level + ".png");
+	background->setPosition(Vec2(Director::getInstance()->getVisibleSize() / 2));
+	this->addChild(background, -1);
 
 	auto window = Sprite::create("Scene/WindowLose.png");
 	window->setScale(0.70f);
@@ -29,7 +33,11 @@ bool GameOver::init(int score)
 
 	auto menuButton = MenuItemImage::create("Scene/Menu_BTN.png", "Scene/Menu_BTN.png", CC_CALLBACK_1(GameOver::callMainMenu, this));
 	auto settingButton = MenuItemImage::create("Scene/Settings_BTN.png", "Scene/Settings_BTN.png", CC_CALLBACK_1(GameOver::callSetingScene, this));
-	auto replayButton = MenuItemImage::create("Scene/Replay_BTN.png", "Scene / Replay_BTN.png", CC_CALLBACK_1(GameOver::callReplay, this));
+	auto replayButton = MenuItemImage::create("Scene/Replay_BTN.png", "Scene / Replay_BTN.png",
+		[=](Ref* sender)
+		{
+			Director::getInstance()->replaceScene(GameScene::create(level, boss));
+		});
 
 	auto menuLoseScene = Menu::create(settingButton, replayButton, menuButton, nullptr);
 	menuLoseScene->setPosition(Vec2(windowSize.width / 2, windowSize.height / 8));
@@ -63,10 +71,3 @@ void GameOver::callMainMenu(Ref* sender)
 {
 	Director::getInstance()->replaceScene(MenuScene::create());
 }
-
-void GameOver::callReplay(Ref* sender)
-{
-	Director::getInstance()->replaceScene(GameScene::create("Easy", 1));
-}
-
-
