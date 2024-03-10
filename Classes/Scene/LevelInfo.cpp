@@ -1,5 +1,7 @@
 #include "LevelInfo.h"
 #include "GameScene.h"
+#include "json/rapidjson.h"
+#include "json/document.h"
 
 Layer* LevelInfo::create(std::string level, int boss)
 {
@@ -20,6 +22,21 @@ bool LevelInfo::init(std::string level, int boss)
 	{
 		return false;
 	}
+
+	std::string path = FileUtils::getInstance()->getWritablePath();
+	path += "highscore.json";
+
+	if (!FileUtils::getInstance()->isFileExist(path))
+	{
+		// create new 
+		std::string content = FileUtils::getInstance()->getStringFromFile("default-highscore.json");
+		FileUtils::getInstance()->writeStringToFile(content, path);
+	}
+
+	rapidjson::Document docs;
+	std::string highScoreContent = FileUtils::getInstance()->getStringFromFile(path);
+	docs.Parse(highScoreContent.c_str());
+	int diem = docs[level.c_str()].GetInt();
 
 	auto overlayLayer = LayerColor::create(Color4B(0, 0, 0, 128));
 	overlayLayer->setContentSize(Director::getInstance()->getVisibleSize());
@@ -70,7 +87,7 @@ bool LevelInfo::init(std::string level, int boss)
 	 levelLabel->setPosition(Vec2(windowSize.width / 2, windowSize.height /1.05));
 	 window->addChild(levelLabel);
 
-	 auto label = Label::createWithTTF("1000000", "fonts/ethnocentric rg.otf", 24);
+	 auto label = Label::createWithTTF(std::to_string(diem), "fonts/ethnocentric rg.otf", 24);
 	 label->setPosition(Vec2(tableSize / 2));
 	 tableSprite->addChild(label);
 

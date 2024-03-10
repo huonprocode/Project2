@@ -83,6 +83,7 @@ void PauseScene::callMainMenu(Ref* sender)
 void PauseScene::callResume(Ref* sender)
 {
 	Director::getInstance()->resume();
+	Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1);
 	
 	this->removeFromParent();
 }

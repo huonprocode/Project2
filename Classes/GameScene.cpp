@@ -491,7 +491,7 @@ void GameScene::callPauseScene(Ref* sender)
 	auto window = PauseScene::create(_totalscore);
 	addChild(window, INT_MAX);
 	Director::getInstance()->pause();
-	
+	this->getPhysicsWorld()->setSpeed(0);
 }
 
 void GameScene::callGameOver()
