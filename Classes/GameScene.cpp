@@ -119,23 +119,23 @@ bool GameScene::init(std::string level, int BossLevel)
 	//this->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	visibleSize = Director::getInstance()->getVisibleSize();
 	Node* frame = Node::create();
-	auto frameBody = PhysicsBody::createEdgeBox(Director::getInstance()->getVisibleSize());
+	auto frameBody = PhysicsBody::createEdgeBox(visibleSize);
 	frame->setPhysicsBody(frameBody);
 	frameBody->setCategoryBitmask(DefineBitmask::FRAME);
 	frameBody->setContactTestBitmask(DefineBitmask::BULLET | DefineBitmask::EBULLET);
-	frame->setPosition(Director::getInstance()->getVisibleSize() / 2);
+	frame->setPosition(visibleSize / 2);
 	this->addChild(frame);
 
 
 	Sprite* background = Sprite::create("BackGround/BG" + level + ".png");
-	background->setPosition(Vec2(Director::getInstance()->getVisibleSize() / 2));
+	background->setPosition(Vec2(visibleSize / 2));
 	this->addChild(background, -1);
 
 	auto pauseButton = MenuItemImage::create("Scene/Pause_BTN.png", "Scene/Pause_BTN.png", CC_CALLBACK_1(GameScene::callPauseScene, this));
 	pauseButton->setScale(0.5);
 	pauseButton->setAnchorPoint(Vec2::ANCHOR_TOP_RIGHT);
 	auto menu = Menu::create(pauseButton, nullptr);
-	menu->setPosition(Vec2(Director::getInstance()->getVisibleSize()));
+	menu->setPosition(Vec2(visibleSize));
 	this->addChild(menu, INT_MAX);
 
 	rapidjson::Document docs;
@@ -154,7 +154,6 @@ bool GameScene::init(std::string level, int BossLevel)
 
 	
 
-	Size visibleSize = Director::getInstance()->getVisibleSize();
 	this->_difficulty = "Enemy" + level;
 
 	_ship = Ship::create(new EntityInfo(1, "Ship"));
@@ -174,6 +173,7 @@ bool GameScene::init(std::string level, int BossLevel)
 	_thongbao->setOpacity(100);
 	auto fadeOutAction = FadeTo::create(2.0f, 0);  // 2.0f is the duration in seconds, you can adjust it
 
+	
 	// Create a CallFunc to perform an action after the fade-out is complete
 	auto callFunc = CallFunc::create([this]() {
 		// Action completed, you can add more code here if needed
@@ -210,8 +210,6 @@ bool GameScene::init(std::string level, int BossLevel)
 			this->schedule(CC_SCHEDULE_SELECTOR(GameScene::callrandomAttack), 5.0f);
 			}, 1.0f, "unscheduleUpdateEnemy");
 		}, 119.0f, "callBoss");
-
-	
 
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);

@@ -17,8 +17,6 @@ class GameScene :public Scene {
 private:
 	Vec2 newPosition;
 	Size visibleSize;
-	MenuItemImage* _pause;
-	Sprite* _live;
 	std::vector<int> enemy_quantity;
 	int _totalscore = 0, _element = 0;
 	std::vector<float>  _dest_x;

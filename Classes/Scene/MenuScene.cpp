@@ -23,6 +23,11 @@ bool MenuScene::init()
 	backGround->setScale(0.8f);
 	this->addChild(backGround, 0);
 
+	auto gameName = Label::createWithTTF("Galactic\nGuardian", "fonts/ethnocentric rg.otf", 40);
+	gameName->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 1.3));
+	gameName->setTextColor(Color4B::GRAY);
+	this->addChild(gameName, 1);
+
 	auto gameScene = MenuItemImage::create("Scene/Start.png","Scene/Start1.png", CC_CALLBACK_1(MenuScene::callGameScene, this));
 	gameScene->setScale(0.75f);
 
