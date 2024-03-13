@@ -18,7 +18,7 @@ bool SettingScene::init()
         };
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, overlayLayer);
 
-    auto windowSetting = Sprite::create("Scene/WindowPause.png");
+    auto windowSetting = Sprite::create("Scene/WindowSetting.png");
     windowSetting->setScale(0.70f);
     windowSetting->setPosition(Director::getInstance()->getVisibleSize() / 2);
     this->addChild(windowSetting);

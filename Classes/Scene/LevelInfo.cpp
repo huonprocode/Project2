@@ -83,7 +83,7 @@ bool LevelInfo::init(std::string level, int boss)
 
 	 Size tableSize = tableSprite->getContentSize();
 
-	 auto levelLabel = Label::createWithTTF("LEVEL " + std::to_string(boss), "fonts/ethnocentric rg.otf", 40);
+	 auto levelLabel = Label::createWithTTF(level , "fonts/ethnocentric rg.otf", 40);
 	 levelLabel->setPosition(Vec2(windowSize.width / 2, windowSize.height /1.05));
 	 window->addChild(levelLabel);
 
