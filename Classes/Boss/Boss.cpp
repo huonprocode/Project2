@@ -78,8 +78,14 @@ bool Boss::callbackOnContactBegin(PhysicsContact& contact)
 	auto nodeA = contact.getShapeA()->getBody()->getNode();
 	auto nodeB = contact.getShapeB()->getBody()->getNode();
 
-	//neu va cham voi dan thi se tru mau
-	//neu va cham voi Ship thi ko sao
+	auto target = (nodeA == this) ? (nodeB) : (nodeA);
+
+	// neu target la enemy's bullet thi thoi , con neu target la enemy thi cho enemy chet luon
+	auto damageable = dynamic_cast<IDamageable*>(target);
+	if (damageable != nullptr)
+	{
+		damageable->takeDamage(10);
+	}
 
 	return false;
 }

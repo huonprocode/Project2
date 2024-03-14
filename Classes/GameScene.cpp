@@ -184,8 +184,6 @@ bool GameScene::init(std::string level, int BossLevel)
 	// Run the sequence of actions
 	_thongbao->runAction(Sequence::create(fadeOutAction, callFunc, nullptr));
 
-	
-
 	Observer::getInstance()->registerEvent("EnemyDie", CC_CALLBACK_1(GameScene::updatequantity, this));
 	Observer::getInstance()->registerEvent("AddBullet", CC_CALLBACK_0(GameScene::addBullet, this));
 	Observer::getInstance()->registerEvent("ShipTakeDame", CC_CALLBACK_1(GameScene::changeLife, this));
@@ -315,11 +313,21 @@ void GameScene::onTouchEnded(Touch* touch, Event* event)
 void GameScene::attack(float dt)
 {
 	AudioManager::getInstance()->playSFX("laser.mp3");
-	for (int i = 0; i < defaultbullet; i++) {
-		auto bullet = Bullet::create(_ship->getEntityInfo()->_level);
-		bullet->setPosition(_ship->getPosition() + bulletbegin[i]);
-		bullet->setScale(0.3);
-		this->addChild(bullet, 2);
+	if (defaultbullet == 2) {
+		for (int i = 1; i < 3; i++) {
+			auto bullet = Bullet::create(_ship->getEntityInfo()->_level);
+			bullet->setPosition(_ship->getPosition() + bulletbegin[i]);
+			bullet->setScale(0.3);
+			this->addChild(bullet, 2);
+		}
+	}
+	else {
+		for (int i = 0; i < defaultbullet; i++) {
+			auto bullet = Bullet::create(_ship->getEntityInfo()->_level);
+			bullet->setPosition(_ship->getPosition() + bulletbegin[i]);
+			bullet->setScale(0.3);
+			this->addChild(bullet, 2);
+		}
 	}
 }
 

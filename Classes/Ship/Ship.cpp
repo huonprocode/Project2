@@ -96,14 +96,6 @@ bool Ship::callbackOnContactBegin(PhysicsContact& contact)
 	
 	if (nodeA != this && nodeB != this) return false;
 
-	auto target = (nodeA == this) ? (nodeB) : (nodeA);
-
-	// neu target la enemy's bullet thi thoi , con neu target la enemy thi cho enemy chet luon
-	auto damageable = dynamic_cast<IDamageable*>(target);
-	if (damageable != nullptr)
-	{
-		damageable->takeDamage(10000);
-	}
-
+	
 	return false;
 }
